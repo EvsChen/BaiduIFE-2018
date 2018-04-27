@@ -1,10 +1,9 @@
-
 import san from 'san';
-import printMe from './print.js'
-import './style.css'
+import printMe from './print.js';
+import './style.css';
 
 const MyApp = san.defineComponent({
-    template: `
+  template: `
         <div>
             <button>Click me</button>
             <input type="text" value="{=name=}">
@@ -13,16 +12,16 @@ const MyApp = san.defineComponent({
     `
 });
 
-let myApp = new MyApp({
-    data: {
-        name: 'San'
-    }
+const myApp = new MyApp({
+  data: {
+    name: 'San'
+  }
 });
 printMe();
 myApp.attach(document.body);
 if (module.hot) {
-    module.hot.accept('./print.js', function() {
-        console.log('Accepting the updated printMe module!');
-        printMe();
-    })
+  module.hot.accept('./print.js', () => {
+    console.log('Accepting the updated printMe module!');
+    printMe();
+  });
 }

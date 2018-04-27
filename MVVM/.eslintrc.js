@@ -1,0 +1,24 @@
+module.exports = {
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jquery": true
+  },
+  "rules":{
+    "object-shorthand": [0],
+    "import/no-extraneous-dependencies": [0],
+    "import/no-unresolved": [0],
+    "func-names": [0],
+    "no-use-before-define": [0],
+    "prefer-destructuring": [0],
+    "no-plusplus": [0],
+    "linebreak-style": [0],
+    "no-mixed-operators": [0],
+    "no-underscore-dangle": [0],
+    "no-loop-func": [0],
+    'import/extensions': ['off', 'never'],
+    "comma-dangle": [0]
+  }
+};
