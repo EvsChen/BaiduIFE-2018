@@ -1,0 +1,19 @@
+<template>
+  <div 
+    style="background: {{color}}; width: 100px; height: 100px"
+    on-click="changeColor()"
+  >
+  </div>
+</template>
+<script>
+  export default {
+    initData: function() {
+      return {
+        color: 'red'
+      }
+    },
+    changeColor: function() {
+      this.data.set('color', 'blue');
+    }
+  }
+</script>

@@ -1,0 +1,18 @@
+body {
+  margin: 20px;
+}
+
+div.sidebar {
+  padding: 20px;
+  float: left;
+  ul {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#main {
+  float: left;
+  padding: 20px;
+}

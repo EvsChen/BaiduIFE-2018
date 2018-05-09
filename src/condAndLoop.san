@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <xui-button skin="primary" on-click="add()">
+      添加
+    </xui-button>
+    <table>
+      <tr s-for="data, index in tableData">
+        <td>{{data.name}}</td>
+        <td s-if="data.status === -1">不合格</td>
+        <td s-elif="data.status === 0">待审核</td>
+        <td s-else="data.status === 1">合格</td> 
+        <td s-if="(data.status === -1) || (data.status === 1)">
+          <xui-button skin="primary" on-click="remove(index)">
+            删除
+          </xui-button>
+        </td>
+        <td s-else="data.status === 0">
+          <xui-button skin="primary" on-click="check(index)">
+            审核
+          </xui-button>
+        </td>        
+      </tr>
+    </table>
+  </div>
+</template>
+<script>
+  import { Row, Button } from 'san-xui'
+  export default {
+    initData: function() {
+      return {
+        tableData: [
+          {
+            name: '章三',
+            status: -1,
+          },
+          {
+            name: '章三',
+            status: 1,
+          },
+          {
+            name: '李三',
+            status: 0,
+          },
+          {
+            name: '王三',
+            status: -1,
+          },
+        ]
+      }
+    },
+    components: {
+      'x-row': Row,
+      'xui-button': Button
+    },
+    remove: function(index) {
+      this.data.removeAt('tableData', index);
+    },
+    check: function(index) {
+      this.data.set(`tableData[${index}].status`, 1);
+    },
+    add: function() {
+      this.data.push('tableData',{
+        name: '里斯本',
+        status: 0
+      });
+    }
+  }
+</script>
+

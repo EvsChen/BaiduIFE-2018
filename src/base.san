@@ -1,0 +1,82 @@
+<template>
+<div>
+  <h1>BaiduIFE-2018</h1>  
+  <div class="container">
+    <div class="sidebar">
+      <h2>List of tasks</h2>
+      <ul>
+        <router-link s-for="t in taskList" to="/{{t.name}}">{{t.name}}</router-link>
+      </ul>
+    </div>
+    <div id="main">
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+import 'san-xui/dist/xui.css';
+import { router, Link } from 'san-router';
+import DataBinding from './dataBinding.san';
+import CondAndLoop from './condAndLoop.san';
+import StyleChange from './styleChange.san';
+import EventHandler from './eventHandler.san';
+
+const taskList = [
+  {
+    name: 'DataBinding',
+    component: DataBinding
+  },
+  {
+    name: 'ConditionAndLoop',
+    component: CondAndLoop
+  },
+  {
+    name: 'StyleChange',
+    component: StyleChange
+  },
+  {
+    name: 'EventHandler',
+    component: EventHandler
+  }
+];
+taskList.forEach(ele => {
+  router.add({ rule: `/${ele.name}`, Component: ele.component, target: '#main'});  
+});
+
+// router.add({ rule: '/dataBinding', Component: DataBinding, target: '#main'});
+// router.add({ rule: '/condAndLoop', Component: CondAndLoop, target: '#main'});
+router.start();
+
+export default {
+    initData: function() {
+      return {
+        taskList
+      }
+    },
+    components: {
+        'router-link': Link
+    }
+    // route() {
+    //     let route = this.data.get('route');
+    //     let todos = service.todos(+(route.query.category || 0));
+
+    //     this.data.set('todos', todos);
+    //     this.data.set('categories', service.categories());
+    // },
+
+    // doneTodo(index) {
+    //     let todo = this.data.get('todos', index);
+    //     service.doneTodo(todo.id);
+
+    //     this.data.set('todos.' + index + '.done', true);
+    // },
+
+    // rmTodo(index) {
+    //     let todo = this.data.get('todos', index);
+    //     service.rmTodo(todo.id);
+
+    //     this.data.removeAt('todos', index);
+    // }
+}
+</script>

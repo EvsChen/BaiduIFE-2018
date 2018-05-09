@@ -1,0 +1,32 @@
+<template>
+<div>
+  <h1>Hello</h1>
+  <div>
+    <input type="text" placeholder="Name" value="{=name=}" >
+    <input type="number" placeholder="Age" value="{=age=}">
+    <input type="text" placeholder="Intro" value="{=intro=}">
+  </div>
+  <div>
+    <p>信息:<button on-click="clearData">移除信息</button></p>
+    <p>姓名：{{name}}</p>
+    <p>年龄：{{age}}</p>
+    <p>简介：{{intro}}</p>
+  </div>
+</div>
+</template>
+<script>
+  import { DataTypes } from 'san'
+  export default {
+    dataTypes: {
+      name: DataTypes.string,
+      age: DataTypes.number,
+      intro: DataTypes.string
+    },
+    clearData: function () {
+      console.log(this.data);
+      this.data.set('name', '');
+      this.data.set('age', '');
+      this.data.set('intro', '');
+    }
+  }
+</script>

@@ -1,0 +1,72 @@
+<template>
+  <div>
+  <div class="desc">
+    In this task, it's required to post the text in child input to its 'parent' and 'grandparent' component when the button is clicked.<br />
+    Also, when the parent input changes, the child input should update.
+  </div>
+  <parent>
+    <child></child>
+  </parent>
+  <span>Grandparent: {{gpVal}}</span>
+  </div>
+</template>
+
+<script>
+  import { defineComponent } from 'san';
+  const child = defineComponent({
+    template: `<div>Child: <input type="text" value="{= text =}"><button on-click="postText">PostToParents</button></div>`,
+    postText: function() {
+      // Send message to parent component to refresh data      
+      this.dispatch('text-message', this.data.get('text'));
+    },
+    attached: function() {
+      // When the child component is attached, send message to parent component to attach it
+      this.dispatch('child:attached');
+    }
+  });
+
+  const parent = defineComponent({
+    initData: function() {
+      return {
+        pVal: 'This is the parent initial value'
+      }
+    },
+    template: `
+      <div>
+        <slot></slot>
+        <span>Parent: 
+          <input type="text" value="{= pInput =}" on-keyup="returnText">
+        </span>
+      </div>
+    `,
+    messages: {
+      'child:attached': function(arg) {
+        this.child = arg.target;
+      },
+      'text-message': function(arg) {
+        // When receive 'text-message', set data and dispatch to grandparent
+        this.data.set('pInput', arg.value);
+        this.dispatch('text-message', arg.value);
+      }
+    },
+    returnText: function() {
+      // The bi-direction communication is achieved by binding events on keyup
+      // Must use 'keyup' than 'keydown' for data watching
+      this.child.data.set('text', this.data.get('pInput'));
+    }
+  });
+
+  export default {
+    initData: function() {
+      return {
+        gpVal: 'This is the initial grandparent value'
+      }
+    },
+    components: { child, parent },
+    messages: {
+      'text-message': function(arg) {
+        this.data.set('gpVal', arg.value);
+      }
+    }
+  }
+</script>
